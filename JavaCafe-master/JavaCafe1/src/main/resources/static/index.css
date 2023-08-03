@@ -1,0 +1,188 @@
+
+*{
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+    list-style: none;
+    text-decoration: none;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 100px;
+    transition: 0.5s linear;
+    background-color: black;
+    
+}
+.logo img{
+    width: 60px;
+}
+section{
+    padding: 50px 100px;
+}
+.navbar {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+}
+
+.navbar li{
+    margin-right: 55px;
+}
+
+.navbar li a{
+    padding: 10px 20px;
+    background-color: #483C32;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 550;
+    border-radius: 0.2rem;
+}
+
+.navbar a:hover{
+    background-color: #808080;
+    border-radius: 0.2rem;
+    transition: 0.2s all linear;
+}
+
+
+.search-icon {
+    display: flex;
+    align-items: center;
+}
+
+.search-icon img {
+    width: 20px;
+    height: 20px;
+    transition: color 0.3s ease;
+}
+
+.search-icon img:hover {
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.search-bar {
+    position: absolute;
+    top: -100%;
+    left: 50%; /* Adjusted the left value to 0 */
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 10;
+}
+
+.search-bar.active{
+    top:100%;
+    transition: 0.2s all linear;
+}
+.search-bar input {
+    padding: 20px;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    color: black;
+    font-weight: 200;
+}
+
+
+
+.search-bar input::placeholder{
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.home {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 0.25px); /* Adjusted the min-height value to account for the header height */
+    background: url(images/possibleBG2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
+    align-items: center;
+    gap: 1.5em;
+    margin-top: 104px; /* Added margin-top to create space below the header */
+}
+
+.about{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
+    align-items: center;
+    gap: 1.5em;
+    
+}
+.about-image img{
+    border-radius: 0.5rem;
+}
+.about h2{
+    font: size 1.8rem;
+    text-transform: uppercase;
+}
+
+.about p{
+    text-align: justify;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.footer {
+    display: flex;
+    align-items: baseline;
+    gap: 250px;
+  }
+  
+.footer h3 {
+    font-size: 1.3rem;
+    font-weight: 550;
+    margin-bottom: 12px;
+  }
+  
+.footer li a{
+    color: black;
+    font-size: 0.9rem;
+ }
+.footer li a:hover{
+    color: silver
+}
+.support li a{
+    margin-bottom: 40px;
+}
+ .contactUs{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+ }
+
+ .contactUs span{
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem
+ }
+
+ .contactUs span img{
+    margin-right: 0.7rem;
+ }
+
+ .copyRight{
+    background-color: black;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+ }
