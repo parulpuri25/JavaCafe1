@@ -1,73 +1,88 @@
 package com.example.JavaCafe.Controller;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.JavaCafe.ConfirmationToken;
-import com.example.JavaCafe.User;
+import com.example.JavaCafe.ResetPasswordToken;
 import com.example.JavaCafe.Dto.UserDTO;
 import com.example.JavaCafe.repository.UserRepository;
-import com.example.JavaCafe.service.ConfirmationTokenService;
+import com.example.JavaCafe.service.ResetPasswordService;
 import com.example.JavaCafe.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 	private final UserService userService;
-	private final ConfirmationTokenService confirmationTokenService;
-	private final UserRepository userRepository;
+	private final ResetPasswordService resetPasswordService;
 	Logger log = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-	public UserController(UserService userService, ConfirmationTokenService confirmationTokenService, UserRepository userRepository) {
+	@Autowired
+	public UserController(UserService userService, ResetPasswordService resetPasswordService,
+			UserRepository userRepository) {
 		this.userService = userService;
-		this.confirmationTokenService = confirmationTokenService;
-		this.userRepository = userRepository;
+		this.resetPasswordService = resetPasswordService;
 	}
+
 	@PostMapping("/register")
-    public ResponseEntity<String> registerUser(UserDTO userDto) {
-        String message = userService.register(userDto);
-        return ResponseEntity.ok(message);
-    }
-    
+	public ResponseEntity<String> registerUser(UserDTO userDto) {
+		String message = userService.register(userDto);
+		return ResponseEntity.ok(message);
+	}
+
 	@PostMapping("/login")
-    public ResponseEntity<String> loginUser(
-           String email,
-             String password) {
-        String message = userService.login(email, password);
-        return ResponseEntity.ok(message);
-}
-	
+	public ResponseEntity<String> loginUser(String email, String password) {
+		String message = userService.login(email, password);
+		return ResponseEntity.ok(message);
+	}
+
 	@GetMapping("/confirm")
 	public ResponseEntity<String> confirmEmail(String token) {
-		System.out.println("Received confirmation request with token: {}" + token);
-
-		Optional<ConfirmationToken> optionalToken = confirmationTokenService.getToken(token);
-		if(optionalToken.isPresent()) {
-			ConfirmationToken confirmationToken = optionalToken.get();
-			if(LocalDateTime.now().isBefore(confirmationToken.getExpiresAt())) {
-				User user = confirmationToken.getUser();
-				user.setEmailVerified(true);
-				userRepository.save(user);
-				return ResponseEntity.ok("Email Confirmed. Please proceed to Login Now!!");
-			} else {
-				return ResponseEntity.badRequest().body("The token has expired!!");
-			}
-		}
-		else {
-			return ResponseEntity.badRequest().body("Invalid Token");
-		}
-		
-		
-		
+		String message = userService.emailValidation(token);
+		return ResponseEntity.ok(message);
 	}
+	
+	@PostMapping("/forgotPassword")
+	public ResponseEntity<String> sendResetLink(UserDTO userDto){
+		String message = userService.resetPasswordTokenGeneration(userDto);
+		return ResponseEntity.ok(message);
+	}
+	
+	@GetMapping("/resetPassword")
+	public ResponseEntity<String> showResetPasswordForm(@RequestParam("resetPasswordToken") String resetPasswordToken, 
+			UserDTO userDto, Model model) {
+	    Optional<ResetPasswordToken> optionalToken = resetPasswordService.getResetPasswordToken(resetPasswordToken);
+	    System.out.println(optionalToken);    
+	    if (optionalToken.isPresent()) {
+	    	ResetPasswordToken resetPasswordToken1 = optionalToken.get();
+	        String extractedToken = resetPasswordToken1.getEmailToken();
+	        System.out.println(extractedToken);
+	        model.addAttribute("resetPasswordToken",extractedToken);
+	    	return ResponseEntity.status(302)
+	                .header("Location", "/resetPassword.html?resetPasswordToken="+extractedToken)
+	                .build();
+	    } else {
+	    	return null;	        
+	    }
+	}
+	
+	@PostMapping("/resetPassword")
+	public ResponseEntity<String> processResetPassword(String token, 
+	                                                   String password) {
+	    String message = userService.resetPassword(token, password);
+	    return ResponseEntity.ok(message);
+	}
+
+	
+
+	
 }

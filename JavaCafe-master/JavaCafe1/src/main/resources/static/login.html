@@ -1,103 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="login.css" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignIn Page</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="login.css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SignIn Page</title>
 </head>
+
 <body>
-    <header id="header">
-    </header>
-    <div class="container">
-        <div class="signin">
-            <h1>Sign In</h1>
-            <form action="/users/login" class="form" id="signin" method="post">  
-                <div class="input-group">
-                    <div class="input-fields">
-                        <input type="email" placeholder="Enter your Email Id" name='email' id='email'>
-                        <span></span>
-                    </div>
-                    <div class="input-fields">
-                        <input type="password" placeholder="Enter your Password" name='password' id='password'>
-                        <span></span>
-                    </div>   
-                    <div class="buttons">
-                        <button type="submit" id="signIn" value="Login">Sign In</button>
-                    </div>
-                    <div class="links">
-                        <p><a href="register.html">Create a new Account</a></p>
-                        <p><a href="forgotPassword.html">Forgot Password?</a></p>
-                    </div>
-                    
-                </div>
-            </form>
-        </div>
-    </div>
-    <footer id="footer"></footer>
-    <script src="index.js"></script>
+	<header id="header">
+	</header>
+	<div class="container">
+		<div class="signin">
+			<h1>Sign In</h1>
+			<form action="/users/login" class="form" id="signin" method="post" onsubmit="loginUser(event)">
+				<div class="input-group">
+					<div class="input-fields">
+						<input type="email" placeholder="Enter your Email Id" name='email' id='email'>
+						<span></span>
+					</div>
+					<div class="input-fields">
+						<input type="password" placeholder="Enter your Password" name='password' id='password'>
+						<span></span>
+					</div>
+					<div class="buttons">
+						<button type="submit" id="signIn" value="Login">Sign In</button>
+					</div>
+					<div class="links">
+						<p><a href="register.html">Create a new Account</a></p>
+						<p><a href="forgotPassword.html">Forgot Password?</a></p>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<footer id="footer"></footer>
+	<script src="index.js"></script>
     <script>
-		// The function to submit the form
-		/*function loginUser(event) {
-			//event.preventDefault(); // Prevent the default form submission
-
-			// Validate form fields
-			if (!validateForm()) {
-				return;
-			}
-
-			// Gather form data
-			var formData = new URLSearchParams({
-				email: document.getElementById("email").value,
-				password: document.getElementById("password").value
-			});
-
-			// Send the AJAX request
-			fetch('/users/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: formData
-			})
-				.then(response => response.text())
-				.then(message => {
-					showSuccessMessage(message);
-				})
-				.catch(error => {
-					console.error('Error:', error);
-				});
-		}
-
-		// The function to show the success message
-		function showSuccessMessage(message) {
-			var successMessage = document.getElementById('message');
-			successMessage.textContent = message;
-			successMessage.style.display = 'block';
-			successMessage.style.marginTop = '10px';
-			successMessage.style.marginBottom = '10px';
-			successMessage.style.padding = '10px';
-			successMessage.style.background = '#8c592f';
-			successMessage.style.text = 'bold';
-			successMessage.style.fontWeight = '700'
-			successMessage.style.border = '2px solid grey';
-			successMessage.style.borderRadius = '5px';
-		}
-
+        // The function to submit the form
+        function loginUser(event) {
+          event.preventDefault(); // Prevent the default form submission
+      
+          // Validate form fields
+          if (!validateForm()) {
+            return;
+          }
+      
+          // Gather form data
+          var formData = new URLSearchParams({
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+          });
+      
+          // Send the AJAX request
+          fetch("/users/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: formData,
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text(); // Convert the response to text
+            })
+            .then((message) => {
+              redirectToUserPage(); // Redirect to userPage.html
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        }
+      
+        // The function to redirect to userPage.html
+        function redirectToUserPage() {
+          window.location.href = 'userPage.html';
+        }
+      
 		// Form validation function
 		function validateForm() {
 			const emailInput = document.getElementById("email");
 			const passwordInput = document.getElementById("password");
-            let isValid = true;
+			let isValid = true;
 			// Validate Email
 			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 			if (emailInput.value.trim() === "") {
 				displayError(emailInput, "Email cannot be empty!!");
-                isValid = false;
+				isValid = false;
 			} else if (!emailRegex.test(emailInput.value)) {
 				displayError(emailInput, "Please enter a valid email address.")
-                isValid = false;
+				isValid = false;
 			}
 			else {
 				hideError(emailInput);
@@ -105,38 +102,39 @@
 			// Validate Password
 			if (passwordInput.value.trim() === "") {
 				displayError(passwordInput, "Password cannot be empty.");
-                isValid = false;
+				isValid = false;
 			} else if (passwordInput.value.length < 8) {
 				displayError(passwordInput, "Password needs to be at least 8 characters.");
-                isValid = false;
+				isValid = false;
 			} else {
 				hideError(passwordInput);
 			}
-            return isValid;
-        }
-			//Function to display Error Message
-			function displayError(inputElement, errorMessage) {
-				const spanElement = inputElement.nextElementSibling;
-				spanElement.textContent = errorMessage;
-				spanElement.style.visibility = 'visible';
-				spanElement.style.color = 'red';
-				spanElement.style.fontWeight = '550';
-				spanElement.style.position = 'absolute';
-				spanElement.style.marginTop = '43px';
-				spanElement.style.textAlign = 'left';
-				spanElement.style.padding = '15px';
-				spanElement.style.left = '0';
-				spanElement.style.marginBottom = '10px';
+			return isValid;
+		}
+		//Function to display Error Message
+		function displayError(inputElement, errorMessage) {
+			const spanElement = inputElement.nextElementSibling;
+			spanElement.textContent = errorMessage;
+			spanElement.style.visibility = 'visible';
+			spanElement.style.color = 'red';
+			spanElement.style.fontWeight = '550';
+			spanElement.style.position = 'absolute';
+			spanElement.style.marginTop = '43px';
+			spanElement.style.textAlign = 'left';
+			spanElement.style.padding = '15px';
+			spanElement.style.left = '0';
+			spanElement.style.marginBottom = '10px';
 
-			}
+		}
 
-			//Function to hide Error Message
-			function hideError(inputElement) {
-				const spanElement = inputElement.nextElementSibling;
-				spanElement.textContent = "";
-				spanElement.style.visibility = 'hidden';
-			}*/
-		
+		//Function to hide Error Message
+		function hideError(inputElement) {
+			const spanElement = inputElement.nextElementSibling;
+			spanElement.textContent = "";
+			spanElement.style.visibility = 'hidden';
+		}
+
 	</script>
-</body>  
+</body>
+
 </html>

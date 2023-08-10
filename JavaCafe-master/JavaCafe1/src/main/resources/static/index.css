@@ -60,14 +60,18 @@ section{
 }
 
 
-.search-icon {
+.images {
     display: flex;
-    align-items: center;
+    gap: 1rem;    
 }
-
+.images .user-icon img{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
 .search-icon img {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
     transition: color 0.3s ease;
 }
 
@@ -98,8 +102,6 @@ section{
     color: black;
     font-weight: 200;
 }
-
-
 
 .search-bar input::placeholder{
     font-size: 1rem;

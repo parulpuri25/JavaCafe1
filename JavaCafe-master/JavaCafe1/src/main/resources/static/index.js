@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log('Clicked!');
           search.classList.toggle('active');
         };
+        document.querySelector('#user-icon').onclick = () => {
+          window.location.href= "login.html";
+        };
       });
   
     // Fetch and insert footer
