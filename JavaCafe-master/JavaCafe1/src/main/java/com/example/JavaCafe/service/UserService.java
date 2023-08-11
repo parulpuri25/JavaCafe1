@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.JavaCafe.ConfirmationToken;
+import com.example.JavaCafe.Feedback;
 import com.example.JavaCafe.ResetPasswordToken;
 import com.example.JavaCafe.User;
 import com.example.JavaCafe.Dto.UserDTO;
@@ -19,13 +20,15 @@ public class UserService {
 	UserRepository userRepository;
 	private final ConfirmationTokenService confirmationTokenService;
 	private final ResetPasswordService resetPasswordService;
+	private final FeedbackService feedbackService;
 
 	@Autowired
 	public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService,
-			ResetPasswordService resetPasswordService) {
+			ResetPasswordService resetPasswordService, FeedbackService feedbackService) {
 		this.confirmationTokenService = confirmationTokenService;
 		this.userRepository = userRepository;
 		this.resetPasswordService = resetPasswordService;
+		this.feedbackService = feedbackService;
 	}
 
 	public String register(UserDTO userDto) {
@@ -120,5 +123,9 @@ public class UserService {
 	        return "Invalid token.";
 	    }
 	    }
-
+	public String submitFeedback(Feedback feedback) {
+		feedbackService.saveFeedback(feedback);
+		feedbackService.sendAcknowledgementMessage(feedback);
+		return "Feedback has been submitted.";
+	}
 }

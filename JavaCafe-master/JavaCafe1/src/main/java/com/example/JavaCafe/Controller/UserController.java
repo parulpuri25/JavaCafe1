@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.JavaCafe.Feedback;
 import com.example.JavaCafe.ResetPasswordToken;
 import com.example.JavaCafe.Dto.UserDTO;
 import com.example.JavaCafe.repository.UserRepository;
@@ -82,7 +83,11 @@ public class UserController {
 	    return ResponseEntity.ok(message);
 	}
 
-	
+	@PostMapping("/submitFeedback")
+	public ResponseEntity<String> submitFeedback(Feedback feedback) {
+	    String message = userService.submitFeedback(feedback);
+	    return ResponseEntity.ok(message);
+	}
 
 	
 }
