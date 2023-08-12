@@ -114,6 +114,7 @@ public class UserService {
 	        if (LocalDateTime.now().isBefore(resetPasswordToken1.getExpiresAt())) {
 	            User user = resetPasswordToken1.getUser();
 	            user.setPassword(password);
+	            System.out.println(password+"password");
 	            userRepository.save(user);       
 	            return "Password has been changed. Please proceed to login.";
 	        } else {
@@ -126,6 +127,6 @@ public class UserService {
 	public String submitFeedback(Feedback feedback) {
 		feedbackService.saveFeedback(feedback);
 		feedbackService.sendAcknowledgementMessage(feedback);
-		return "Feedback has been submitted.";
+		return "Feedback has been submitted " + feedback.getFirstName();
 	}
 }

@@ -1,0 +1,14 @@
+.welcomeMessage{
+    margin-top: 200px;
+    left: 40%;
+    position: relative;
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.userAccount{
+    margin-top: 50px;
+    left: 25%;
+    position: relative;
+    font-size: 20px;
+}
