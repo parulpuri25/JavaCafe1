@@ -8,6 +8,7 @@
     scroll-padding-top: 4rem;
     list-style: none;
     text-decoration: none;
+    font-style: bold;
 }
 
 header{
@@ -40,7 +41,7 @@ section{
 }
 
 .navbar li{
-    margin-right: 55px;
+    margin-right: 50px;
 }
 
 .navbar li a{
@@ -62,7 +63,7 @@ section{
 
 .images {
     display: flex;
-    gap: 1rem;    
+    gap: 1rem; 
 }
 .images .user-icon img{
     width: 32px;
@@ -106,6 +107,33 @@ section{
 .search-bar input::placeholder{
     font-size: 1rem;
     font-weight: 400;
+}
+
+.account-card {
+    position: absolute;
+    width: 200px;
+    padding: 10px;
+    height: 160px;
+    margin-top: 40px;
+    background-color: #483C32;
+    border: 1px solid #483C32;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+.account-card a{
+    color: white;
+}
+.account-card p{
+    margin-top: 5px;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin-top: 20px;
+    gap: 1rem;
+    font-size: 16px;
 }
 
 .home {
