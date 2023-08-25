@@ -1,0 +1,21 @@
+.about{
+    margin-top: 120px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
+    align-items: center;
+    gap: 1.5em;
+    
+}
+.about-image img{
+    border-radius: 0.5rem;
+}
+.about h2{
+    font: size 1.8rem;
+    text-transform: uppercase;
+}
+
+.about p{
+    text-align: justify;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 1rem;
+}

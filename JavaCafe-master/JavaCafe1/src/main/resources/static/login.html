@@ -15,6 +15,7 @@
 	<div class="container">
 		<div class="signin">
 			<h1>Sign In</h1>
+			<div class="message" id="message" style="display: none;"></div>
 			<form action="/users/login" class="form" id="signin" method="post" onsubmit="loginUser(event)">
 				<div class="input-group">
 					<div class="input-fields">
@@ -70,8 +71,11 @@
               return response.text(); // Convert the response to text
             })
             .then((message) => {
-              redirectToUserPage(); // Redirect to userPage.html
-            })
+				if(message==="Successful Login"){
+					redirectToUserPage(); 
+				}else{
+			  showErrorMessage(message);
+            }})
             .catch((error) => {
               console.error('Error:', error);
             });
@@ -81,7 +85,19 @@
         function redirectToUserPage() {
           window.location.href = 'userPage.html';
         }
-      
+		function showErrorMessage(message) {
+			var successMessage = document.getElementById('message');
+			successMessage.textContent = message;
+			successMessage.style.display = 'block';
+			successMessage.style.marginTop = '10px';
+			successMessage.style.marginBottom = '10px';
+			successMessage.style.padding = '10px';
+			successMessage.style.background = 'red';
+			successMessage.style.text = 'bold';
+			successMessage.style.fontWeight = '700'
+			successMessage.style.border = '2px solid grey';
+			successMessage.style.borderRadius = '5px';
+		}
 		// Form validation function
 		function validateForm() {
 			const emailInput = document.getElementById("email");

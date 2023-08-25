@@ -60,8 +60,7 @@ public class UserService {
 		User user = userRepository.findByEmail(email);
 		if (user != null && password.trim().equals(user.getPassword().trim())) {
 			if (user.isEmailVerified() == true) {
-				return "Hello" + user.getFirstName();
-
+				return "Successful Login";
 			} else {
 				return "Please verify your email first.";
 			}
@@ -128,5 +127,10 @@ public class UserService {
 		feedbackService.saveFeedback(feedback);
 		feedbackService.sendAcknowledgementMessage(feedback);
 		return "Feedback has been submitted " + feedback.getFirstName();
+	}
+	
+	public User fetchUserDetailsByEmail(String email) {
+		User user = userRepository.getUserDetailsByEmail(email);
+		return user;
 	}
 }

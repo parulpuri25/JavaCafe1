@@ -9,5 +9,6 @@ import com.example.JavaCafe.User;
 public interface UserRepository extends JpaRepository<User,Long >{
 	
 	User findByEmail(String email);
+	User getUserDetailsByEmail(String email);
 
 }
